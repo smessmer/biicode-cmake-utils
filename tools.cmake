@@ -6,7 +6,7 @@
 ###################################################
 macro(SETUP_GOOGLETEST)
   if(DEFINED BII_LIB_SRC)
-    FILE(GLOB test_files test/*.cpp) 
+    FILE(GLOB_RECURSE test_files test/*.cpp) 
     LIST(REMOVE_ITEM BII_LIB_SRC ${test_files})
     SET(BII_test_main_SRC ${BII_test_main_SRC} ${test_files})
   endif(DEFINED BII_LIB_SRC)
