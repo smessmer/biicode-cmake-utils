@@ -26,6 +26,12 @@ macro(ACTIVATE_CPP14)
   ENDIF(APPLE)
 endmacro(ACTIVATE_CPP14)
 
+
+###################################################
+#  Link local boost libraries to your project
+#
+#  Uses: ADD_BOOST_LOCAL(boostlib1 boostlib2 ...)
+###################################################
 function(ADD_BOOST_LOCAL)
   # Load boost libraries
   set(Boost_USE_STATIC_LIBS ON)
