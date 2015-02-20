@@ -48,3 +48,19 @@ function(ADD_BOOST_LOCAL)
     TARGET_LINK_LIBRARIES(${BII_BLOCK_TARGET} INTERFACE ${Boost_LIBRARIES})
   ENDIF(WIN32)
 endfunction()
+
+##################################################
+# Add boost to the project
+#
+# Uses:
+#  ADD_BOOST() # if you're only using header-only boost libs
+#  ADD_BOOST(system filesystem) # list all libraries to link against in the dependencies
+##################################################
+function(ADD_BOOST)
+  # Load boost libraries
+  include(biicode/boost/setup)
+  set(Boost_USE_STATIC_LIBS ON)
+  bii_find_boost(COMPONENTS ${ARGN} REQUIRED)
+  target_include_directories(${BII_BLOCK_TARGET} INTERFACE ${Boost_INCLUDE_DIRS})
+  target_link_libraries(${BII_BLOCK_TARGET} INTERFACE ${Boost_LIBRARIES})
+endfunction()
