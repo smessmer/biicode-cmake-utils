@@ -49,6 +49,8 @@ function(ADD_BOOST_LOCAL)
   ENDIF(WIN32)
 endfunction()
 
+INCLUDE(biicode/boost/setup)
+
 ##################################################
 # Add boost to the project
 #
@@ -58,7 +60,6 @@ endfunction()
 ##################################################
 function(ADD_BOOST)
   # Load boost libraries
-  include(biicode/boost/setup)
   set(Boost_USE_STATIC_LIBS ON)
   bii_find_boost(COMPONENTS ${ARGN} REQUIRED)
   target_include_directories(${BII_BLOCK_TARGET} INTERFACE ${Boost_INCLUDE_DIRS})
