@@ -1,0 +1,15 @@
+language: cpp
+compiler:
+- gcc
+before_script:
+- wget https://raw.githubusercontent.com/smessmer/travis-utils/master/setup_biicode_project.py && chmod +x setup_biicode_project.py
+  && ./setup_biicode_project.py
+script:
+- bii find
+deploy:
+  provider: biicode
+  user: ${BII_USERNAME}
+  password:
+    secure: ${BII_PASSWORD}
+  on:
+    branch: develop
