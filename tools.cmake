@@ -29,26 +29,6 @@ macro(ACTIVATE_CPP14)
 endmacro(ACTIVATE_CPP14)
 
 
-###################################################
-#  Link local boost libraries to your project
-#
-#  Uses: ADD_BOOST_LOCAL(boostlib1 boostlib2 ...)
-###################################################
-function(ADD_BOOST_LOCAL)
-  # Load boost libraries
-  set(Boost_USE_STATIC_LIBS ON)
-  message(${ARGN})
-  find_package(Boost REQUIRED COMPONENTS ${ARGN})
-
-  # Add boost libraries
-  TARGET_INCLUDE_DIRECTORIES(${BII_BLOCK_TARGET} INTERFACE ${Boost_INCLUDE_DIRS})
-  IF (WIN32)
-    TARGET_LINK_LIBRARIES(${BII_BLOCK_TARGET} INTERFACE "ws2_32" "wsock32" ${Boost_LIBRARIES})
-  ELSEIF(APPLE OR UNIX)
-    TARGET_LINK_LIBRARIES(${BII_BLOCK_TARGET} INTERFACE ${Boost_LIBRARIES})
-  ENDIF(WIN32)
-endfunction()
-
 INCLUDE(biicode/boost/setup)
 
 ##################################################
