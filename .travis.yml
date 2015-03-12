@@ -1,7 +1,7 @@
 language: cpp
 compiler:
 - gcc
-before_script:
+script:
 - wget https://raw.githubusercontent.com/smessmer/travis-utils/master/setup_biicode_project.sh
   && chmod +x setup_biicode_project.sh
   && ./setup_biicode_project.sh
