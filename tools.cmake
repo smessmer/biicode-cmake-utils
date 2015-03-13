@@ -29,7 +29,7 @@ macro(ACTIVATE_CPP14)
       IF (GCC_VERSION VERSION_LESS 4.8)
         MESSAGE(FATAL_ERROR "Needed at least GCC 4.8 for c++14 support")
       ELSEIF (GCC_VERSION VERSION_LESS 4.9)
-        MESSAGE(WARN "Found GCC ${GCC_VERSION}. Only very limited C++14 support available!")
+        MESSAGE(WARNING "Found GCC ${GCC_VERSION}. Only very limited C++14 support available!")
         TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE "-std=c++1y")
       ELSE()
         MESSAGE(STATUS "Found GCC ${GCC_VERSION}")  
@@ -41,6 +41,22 @@ macro(ACTIVATE_CPP14)
     ENDIF(CMAKE_COMPILER_IS_GNUCXX)
   ENDIF(APPLE)
 endmacro(ACTIVATE_CPP14)
+
+
+##################################################
+# Specify that a specific minimal version of gcc is required
+#
+# Uses:
+#  REQUIRE_GCC_VERSION(4.9)
+##################################################
+function(REQUIRE_GCC_VERSION)
+  IF (CMAKE_COMPILER_IS_GNUCXX)
+    EXECUTE_PROCESS(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+    IF (GCC_VERSION VERSION_LESS ${ARGN})
+      MESSAGE(FATAL_ERROR "Needs at least gcc version ${ARGN}, found gcc ${GCC_VERSION}")
+    ENDIF()
+  ENDIF()
+endfunction(NEED_GCC_VERSION)
 
 
 INCLUDE(biicode/boost/setup)
