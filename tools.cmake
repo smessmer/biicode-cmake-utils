@@ -68,6 +68,12 @@ function(REQUIRE_GCC_VERSION)
   ENDIF()
 endfunction(NEED_GCC_VERSION)
 
+#################################################
+# Enable style compiler warnings
+#################################################
+macro(ENABLE_STYLE_WARNINGS)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Weffc++")
+endmacro(ENABLE_STYLE_WARNINGS)
 
 INCLUDE(biicode/boost/setup)
 
