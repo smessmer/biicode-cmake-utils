@@ -6,10 +6,13 @@ script:
   && chmod +x setup_biicode_project.sh
   && ./setup_biicode_project.sh
   && rm setup_biicode_project.sh
-deploy:
-  provider: biicode
-  user: ${BII_USERNAME}
-  password:
-    secure: ${BII_PASSWORD}
-  on:
-    branch: develop
+after_success:
+- bii user ${BII_USERNAME} -p ${BII_PASSWORD}
+- bii publish
+#deploy:
+#  provider: biicode
+#  user: ${BII_USERNAME}
+#  password:
+#    secure: ${BII_PASSWORD}
+#  on:
+#    branch: develop
