@@ -78,3 +78,22 @@ function(ADD_BOOST)
   target_include_directories(${BII_BLOCK_TARGET} SYSTEM INTERFACE ${Boost_INCLUDE_DIRS})
   target_link_libraries(${BII_BLOCK_TARGET} INTERFACE ${Boost_LIBRARIES})
 endfunction()
+
+
+set(DIR_OF_TOOLS_CMAKE ${CMAKE_CURRENT_LIST_DIR}) 
+
+#################################################
+# Add git version information 
+# Uses:      
+#   ADD_GIT_VERSION(Version.h)  
+# Then, you can write in your source file:
+#   #include "Version.h"
+#   cout << version::VERSION_STRING << version::TAG_NAME << version::COMMITS_SINCE_TAG << version::GIT_COMMIT_ID
+#################################################
+function(ADD_GIT_VERSION)
+  FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/git_version_builder")
+  EXECUTE_PROCESS(COMMAND "${DIR_OF_TOOLS_CMAKE}/git_version_builder.sh" --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/git_version_builder/${ARGN}"
+		  RESULT_VARIABLE result)
+  MESSAGE(STATUS ${result})
+  TARGET_INCLUDE_DIRECTORIES(${BII_BLOCK_TARGET} INTERFACE "${CMAKE_CURRENT_BINARY_DIR}/git_version_builder")
+endfunction(ADD_GIT_VERSION)
