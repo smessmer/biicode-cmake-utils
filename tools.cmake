@@ -58,9 +58,12 @@ endfunction(NEED_GCC_VERSION)
 # Enable style compiler warnings
 #################################################
 macro(ENABLE_STYLE_WARNINGS)
-#  TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE -Wall -Wextra -Weffc++)
   TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE -Wall -Wextra)
 endmacro(ENABLE_STYLE_WARNINGS)
+
+macro(ENABLE_STRICT_STYLE_WARNINGS)
+  TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE -Wall -Wextra -Weffc++)
+endmacro(eNABLE_STRICT_STYLE_WARNINGS)
 
 INCLUDE(biicode/boost/setup)
 
